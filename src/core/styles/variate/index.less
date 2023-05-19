@@ -1,0 +1,38 @@
+@import './easing.less';
+@import './breakpoint.less';
+
+@namespace: fweb;
+
+@multiple-height: 30px;
+
+@header-height: 80px;
+
+@layout-breadcrumb-height: 50px;
+
+@drawer-footer-height: 60px;
+
+@logo-width: 32px;
+
+@sider-menu-width: 210px;
+
+@page-loading-z-index: 10000;
+
+@lock-page-z-index: 3000;
+
+@layout-header-fixed-z-index: 500;
+
+@layout-sider-fixed-z-index: 510;
+
+@layout-mix-sider-fixed-z-index: 550;
+
+@preview-comp-z-index: 1000;
+
+@page-footer-z-index: 99;
+
+@font-size-base: 16px;
+
+.bem(@n; @content) {
+  @{namespace}-@{n} {
+    @content();
+  }
+}

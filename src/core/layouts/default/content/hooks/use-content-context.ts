@@ -1,0 +1,20 @@
+import type { InjectionKey, ComputedRef } from 'vue'
+import { createContext, useContext } from '@/hooks/core/use-context'
+
+/**
+ * 内容区域 Props
+ */
+export interface ContentContextProps {
+  contentHeight: ComputedRef<number>
+  setPageHeight: (height: number) => Promise<void>
+}
+
+const key: InjectionKey<ContentContextProps> = Symbol()
+
+export function createContentContext(context: ContentContextProps) {
+  return createContext<ContentContextProps>(context, key, { native: true })
+}
+
+export function useContentContext() {
+  return useContext<ContentContextProps>(key)
+}

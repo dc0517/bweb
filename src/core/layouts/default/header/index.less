@@ -1,0 +1,172 @@
+@header-prefix-cls: ~'@{namespace}-layout-header';
+@header-trigger-prefix-cls: ~'@{namespace}-layout-header-trigger';
+@logo-prefix-cls: ~'@{namespace}-app-logo';
+
+// 顶部导航栏
+.@{header-prefix-cls} {
+  display: flex;
+  height: @header-height;
+  padding: 0;
+  margin-left: -1px;
+  line-height: @header-height;
+  color: @white;
+  background: linear-gradient(225deg, #1790ff 0%, #1ec1e2 100%);
+  align-items: center;
+  justify-content: space-between;
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: @layout-header-fixed-z-index;
+    width: 100%;
+  }
+
+  &-logo {
+    height: @header-height;
+    min-width: 192px;
+    padding: 0 10px;
+    font-size: 14px;
+
+    img {
+      width: @logo-width;
+      height: @logo-width;
+      margin-right: 2px;
+    }
+  }
+
+  &-left {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    .@{header-trigger-prefix-cls} {
+      display: flex;
+      height: 100%;
+      padding: 1px 10px 0;
+      cursor: pointer;
+      align-items: center;
+
+      .anticon {
+        font-size: 16px;
+      }
+
+      &.light {
+        &:hover {
+          background-color: @header-light-bg-hover-color;
+        }
+
+        svg {
+          fill: #000;
+        }
+      }
+    }
+  }
+
+  &-menu {
+    height: 100%;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+  }
+
+  &-action {
+    display: flex;
+    // min-width: 180px;
+    // padding-right: 12px;
+    align-items: center;
+
+    &__item {
+      display: flex !important;
+      height: @header-height;
+      padding: 0 2px;
+      font-size: 22px;
+      cursor: pointer;
+      align-items: center;
+
+      .ant-badge {
+        height: @header-height;
+        line-height: @header-height;
+      }
+
+      .ant-badge-dot {
+        top: 10px;
+        right: 2px;
+      }
+    }
+
+    span[role='img'] {
+      padding: 0 8px;
+      margin-top: 4px;
+    }
+  }
+
+  &--light {
+    background-color: @white !important;
+    border-bottom: 1px solid @header-light-bottom-border-color;
+    border-left: 1px solid @header-light-bottom-border-color;
+
+    .@{header-prefix-cls}-logo {
+      color: @text-color-base;
+
+      &:hover {
+        background-color: @header-light-bg-hover-color;
+      }
+    }
+
+    .@{header-prefix-cls}-action {
+      &__item {
+        color: @text-color-base;
+
+        .app-iconify {
+          padding: 0 10px;
+          font-size: 24px !important;
+        }
+
+        &:hover {
+          background-color: @header-light-bg-hover-color;
+        }
+      }
+
+      &-icon,
+      span[role='img'] {
+        color: @text-color-base;
+      }
+    }
+  }
+}
+
+// 顶部标题栏
+.@{logo-prefix-cls} {
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.light {
+    border-bottom: 1px solid @border-color-base;
+  }
+
+  &.collapsed-show-title {
+    padding-left: 20px;
+  }
+
+  &.light &__title {
+    color: @primary-color;
+  }
+
+  .app-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  &__title {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 600;
+    font-family: 'FangSong';
+    transition: all 0.5s;
+    line-height: 60px;
+  }
+}

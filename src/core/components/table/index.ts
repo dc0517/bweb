@@ -1,0 +1,11 @@
+export { default as BasicTable } from './src/basic-table.vue'
+export { default as TableAction } from './src/components/table-action.vue'
+export { default as EditTableHeaderIcon } from './src/components/edit-table-header-icon.vue'
+export { default as TableImg } from './src/components/table-img.vue'
+
+export * from './src/types/table'
+export * from './src/types/pagination'
+export * from './src/types/table-action'
+export { useTable } from './src/hooks/use-table'
+export type { FormSchema, FormProps } from '@/components/form/src/types/form'
+export type { EditRecordRow } from './src/components/editable'

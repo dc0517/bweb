@@ -1,0 +1,11 @@
+*.sh
+*.md
+.vscode
+.idea
+.husky
+.local
+dist
+node_modules
+/public
+/docs
+/bin
