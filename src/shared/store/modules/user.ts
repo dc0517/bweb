@@ -1,7 +1,10 @@
+import { h } from 'vue'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
 import { PageEnum } from '@/constants/enums/page-enum'
+import { useMessage } from '@/hooks/web/use-message'
 import { store } from '@s/store'
+import { useAppStore } from '@/store/app'
 import { loginIn } from '@b/services/system-manage/user-manage'
 import { LoginParams } from '@b/services/system-manage/user-manage/model'
 
@@ -40,7 +43,7 @@ export const useUserStore = defineStore({
     setToken(data: string | undefined) {
       this.token = data ? data : ''
     },
-    setUserInfo(data: UserInfo) {
+    setUserInfo(data?: UserInfo) {
       this.userInfo = data ? data : {}
     },
     setSessionTimeout(data: boolean) {
@@ -59,7 +62,11 @@ export const useUserStore = defineStore({
       // 菜单转化
       if (menus?.length) {
       }
-      await router.replace(PageEnum.BASE_HOME)
+      // 是否显示模块页
+      const getShowModulePage = useAppStore().getProjectConfig.modulePage
+      if (getShowModulePage) await router.replace(PageEnum.BASE_MODULE)
+      else await router.replace(PageEnum.BASE_HOME)
+
       return data
     },
     async loginIn(params: LoginParams): Promise<UserInfo | null> {
@@ -75,7 +82,22 @@ export const useUserStore = defineStore({
     },
     async logout() {
       this.setToken(undefined)
+      this.setUserInfo(undefined)
       router.push(PageEnum.BASE_LOGIN)
+    },
+    /**
+     * @description: 退出登录前确认
+     */
+    confirmLoginOut() {
+      const { createConfirm } = useMessage()
+      createConfirm({
+        iconType: 'warning',
+        title: () => h('span', '温馨提醒'),
+        content: () => h('span', '是否确认退出系统?'),
+        onOk: async () => {
+          await this.logout()
+        }
+      })
     },
     resetState() {
       this.userInfo = {}

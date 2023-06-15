@@ -155,8 +155,10 @@
   .@{prefix-cls} {
     .scroll-container {
       position: relative;
-      height: @drawer-footer-height;
+      height: calc(100% - @drawer-footer-height);
     }
+
+    .ant-drawer-content,
     .ant-drawer-wrapper-body {
       overflow: hidden;
     }

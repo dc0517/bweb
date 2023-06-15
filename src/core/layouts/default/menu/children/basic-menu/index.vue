@@ -25,6 +25,7 @@
   import { MenuModeEnum, MenuTypeEnum } from '@/constants/enums/menu-enum'
   import { isFunction } from '@/utils/is'
   import { useMenuConfig } from '@/hooks/config/use-menu-config'
+  import { useRootConfig } from '@/hooks/config/use-root-config'
   import { useDesign } from '@/hooks/web/use-design'
   import { listenerRouteChange } from '@/logics/mitt/route-change'
   import { getCurrentParentPath } from '@/router/menus'
@@ -54,6 +55,7 @@
       const { prefixCls } = useDesign('basic-menu')
       const { items, mode, accordion } = toRefs(props)
       const { getCollapsed, getSplit } = useMenuConfig()
+      const { setRootConfig } = useRootConfig()
       const { currentRoute } = useRouter()
       // 菜单操作
       const { handleOpenChange, setOpenKeys, getOpenKeys } = useOpenKeys(menuState, items, mode as any, accordion)
@@ -82,9 +84,15 @@
         }
         return inlineCollapseOptions
       })
+      // 面包屑隐藏/显示
+      function setBreadCrumb(route?: RouteLocationNormalizedLoaded) {
+        const show = route.meta?.hideChildrenInMenu && route.meta?.hideMenu
+        setRootConfig({ showBreadCrumb: !show })
+      }
       // 监听路由变化
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
+        setBreadCrumb(route)
         handleMenuChange(route)
         currentActiveMenu.value = route.meta?.currentActiveMenu as string
 

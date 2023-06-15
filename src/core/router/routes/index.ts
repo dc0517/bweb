@@ -34,4 +34,13 @@ export const LoginRoute: AppRouteRecordRaw = {
   }
 }
 
-export const basicRoutes = [LoginRoute, RootRoute, REDIRECT_ROUTE, PAGE_NOT_FOUND_ROUTE]
+export const ModuleRoute: AppRouteRecordRaw = {
+  path: '/module',
+  name: 'Module',
+  component: () => import('@/layouts/module/index.vue'),
+  meta: {
+    title: '首页'
+  }
+}
+
+export const basicRoutes = [LoginRoute, ModuleRoute, RootRoute, REDIRECT_ROUTE, PAGE_NOT_FOUND_ROUTE]

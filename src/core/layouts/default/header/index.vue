@@ -8,13 +8,14 @@
     <!-- 左侧 end -->
 
     <!-- 菜单 start -->
-    <div :class="`${prefixCls}-menu`">
+    <div v-if="!getShowModulePage" :class="`${prefixCls}-menu`">
       <LayoutMenu isHorizontal :splitType="getSplitType" :menuMode="getMenuMode" />
     </div>
     <!-- 菜单 end -->
 
     <!-- 操作 start -->
     <div :class="`${prefixCls}-action`">
+      <Dashboard v-if="getShowModulePage" :class="`${prefixCls}-action__item fullscreen-item`" />
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
       <UserDropDown />
     </div>
@@ -28,9 +29,10 @@
   import { MenuModeEnum, MenuSplitTyeEnum } from '@/constants/enums/menu-enum'
   import { useHeaderConfig } from '@/hooks/config/use-header-config'
   import { useMenuConfig } from '@/hooks/config/use-menu-config'
+  import { useRootConfig } from '@/hooks/config/use-root-config'
   import { useDesign } from '@/hooks/web/use-design'
   import { propTypes } from '@/utils/prop-types'
-  import { UserDropDown, FullScreen } from './components'
+  import { Dashboard, UserDropDown, FullScreen } from './components'
   import LayoutMenu from '../menu/index.vue'
 
   export default defineComponent({
@@ -39,6 +41,7 @@
       AppLogo,
       Header: Layout.Header,
       LayoutMenu,
+      Dashboard,
       UserDropDown,
       FullScreen
     },
@@ -49,6 +52,7 @@
       const { prefixCls } = useDesign('layout-header')
       const { getSplit } = useMenuConfig()
       const { getShowFullScreen } = useHeaderConfig()
+      const { getShowModulePage } = useRootConfig()
 
       const getHeaderClass = computed(() => {
         return [
@@ -73,7 +77,8 @@
         getSplitType,
         getSplit,
         getMenuMode,
-        getShowFullScreen
+        getShowFullScreen,
+        getShowModulePage
       }
     }
   })

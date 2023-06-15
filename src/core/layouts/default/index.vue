@@ -5,7 +5,7 @@
     <Layout :class="[layoutClass]">
       <LayoutSideBar />
       <Layout :class="`${prefixCls}-main`">
-        <LayoutBreadcrumb />
+        <LayoutBreadcrumb v-if="isShowBreadCrumb" />
         <LayoutContent />
         <LayoutFooter />
       </Layout>
@@ -14,10 +14,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, unref } from 'vue'
+  import { defineComponent, ref, unref, computed, watch } from 'vue'
   import { Layout } from 'ant-design-vue'
   import { createAsyncComponent } from '@/utils/async-component'
   import { useMenuConfig } from '@/hooks/config/use-menu-config'
+  import { useRootConfig } from '@/hooks/config/use-root-config'
   import { useDesign } from '@/hooks/web/use-design'
   import LayoutHeader from './header/index.vue'
   import LayoutBreadcrumb from './breadcrumb/index.vue'
@@ -37,12 +38,24 @@
     },
     setup() {
       const { prefixCls } = useDesign('default-layout')
+      const { getShowBreadCrumb } = useRootConfig()
+      const isShowBreadCrumb = ref(unref(getShowBreadCrumb))
+      watch(
+        () => getShowBreadCrumb,
+        (result) => {
+          isShowBreadCrumb.value = result.value
+        },
+        {
+          deep: true
+        }
+      )
 
       const layoutClass: string[] = ['ant-layout', 'ant-layout-has-sider']
 
       return {
         prefixCls,
-        layoutClass
+        layoutClass,
+        isShowBreadCrumb
       }
     }
   })

@@ -10,6 +10,10 @@ export const EXCEPTION_COMPONENT = () => import('@/layouts/exception/index.vue')
  */
 export const LAYOUT = () => import('@/layouts/default/index.vue')
 /**
+ * main-out页面
+ */
+export const MAINOUT = () => import('@/layouts/page/main-out.vue')
+/**
  * 父级 layout
  */
 export const getParentLayout = (_name?: string) => {

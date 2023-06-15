@@ -13,6 +13,8 @@ export function useRootConfig() {
   const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive)
   // 是否可以嵌入iframe页面
   const getCanEmbedIFramePage = computed(() => appStore.getProjectConfig.canEmbedIFramePage)
+  // 是否加载模块页
+  const getShowModulePage = computed(() => appStore.getProjectConfig.modulePage)
   // 权限模式
   const getPermissionMode = computed(() => appStore.getProjectConfig.permissionMode)
   // 内容宽度
@@ -38,12 +40,12 @@ export function useRootConfig() {
     appStore.getProjectConfig.contentMode === ContentEnum.FULL ? ContentEnum.FULL : ContentEnum.FIXED
   )
 
-  function setRootSetting(setting: Partial<RootSetting>) {
+  function setRootConfig(setting: Partial<RootSetting>) {
     appStore.setProjectConfig(setting)
   }
 
   return {
-    setRootSetting,
+    setRootConfig,
     getFullContent,
     getLayoutContentMode,
     getPageLoading,
@@ -54,6 +56,7 @@ export function useRootConfig() {
     getShowBreadCrumb,
     getShowBreadCrumbIcon,
     getUseOpenBackTop,
+    getShowModulePage,
     getShowSettingButton,
     getShowFooter,
     getContentMode,

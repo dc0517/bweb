@@ -20,6 +20,8 @@ const config: ProjectConfig = {
   contentMode: ContentEnum.FULL,
   // 是否显示底部信息
   showFooter: false,
+  // 是否需要模块页
+  modulePage: true,
   // 头部配置
   headerConfig: {
     // 是否显示

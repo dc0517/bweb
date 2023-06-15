@@ -8,15 +8,20 @@
       </span>
     </span>
     <template #overlay>
-      <AMenu @click="handleMenuClick">
-        <MenuItem key="logout" text="退出登录" icon="ion:power-outline" />
-      </AMenu>
+      <Menu @click="handleMenuClick">
+        <MenuItem key="logout" text="退出登录">
+          <template #icon>
+            <logout-outlined />
+          </template>
+        </MenuItem>
+      </Menu>
     </template>
   </Dropdown>
 </template>
 <script lang="ts">
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface'
   import { Dropdown, Menu } from 'ant-design-vue'
+  import { LogoutOutlined } from '@ant-design/icons-vue'
   import { defineComponent, computed } from 'vue'
   import { useDesign } from '@/hooks/web/use-design'
   import { createAsyncComponent } from '@/utils/async-component'
@@ -28,8 +33,9 @@
     name: 'UserDropdown',
     components: {
       Dropdown,
-      AMenu: Menu,
-      MenuItem: createAsyncComponent(() => import('./components/drop-menu-item.vue'))
+      Menu,
+      MenuItem: createAsyncComponent(() => import('./components/drop-menu-item.vue')),
+      LogoutOutlined
     },
     setup() {
       const { prefixCls } = useDesign('header-user-dropdown')

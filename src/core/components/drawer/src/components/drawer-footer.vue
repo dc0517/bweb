@@ -2,13 +2,13 @@
   <div :class="prefixCls" v-if="showFooter || $slots.footer">
     <template v-if="!$slots.footer">
       <slot name="insertFooter"></slot>
-      <a-button v-bind="cancelButtonProps" @click="handleClose" class="mr-2" v-if="showCancelBtn">
+      <Button v-bind="cancelButtonProps" @click="handleClose" class="mr-2" v-if="showCancelBtn">
         {{ cancelText }}
-      </a-button>
+      </Button>
       <slot name="centerFooter"></slot>
-      <a-button :type="okType" @click="handleOk" v-bind="okButtonProps" class="mr-2" :loading="confirmLoading" v-if="showOkBtn">
+      <Button :type="okType" @click="handleOk" v-bind="okButtonProps" class="mr-2" :loading="confirmLoading" v-if="showOkBtn">
         {{ okText }}
-      </a-button>
+      </Button>
       <slot name="appendFooter"></slot>
     </template>
 
@@ -20,6 +20,7 @@
 <script lang="ts">
   import type { CSSProperties } from 'vue'
   import { defineComponent, computed } from 'vue'
+  import { Button } from 'ant-design-vue'
   import { useDesign } from '@/hooks/web/use-design'
   import { footerProps } from '../props'
 
@@ -28,6 +29,7 @@
     props: {
       ...footerProps
     },
+    components: { Button },
     emits: ['ok', 'close'],
     setup(props, { emit }) {
       const { prefixCls } = useDesign('basic-drawer-footer')

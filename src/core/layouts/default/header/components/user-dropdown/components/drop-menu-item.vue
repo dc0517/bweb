@@ -1,8 +1,8 @@
 <template>
   <MenuItem :key="itemKey">
     <span class="flex items-center">
-      <Icon :icon="icon" class="mr-1" />
-      <span>{{ text }}</span>
+      <slot name="icon"></slot>
+      <span class="ml-2">{{ text }}</span>
     </span>
   </MenuItem>
 </template>

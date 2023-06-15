@@ -73,6 +73,8 @@ export interface ProjectConfig {
   themeColor: string
   // 主界面全屏显示，菜单不显示，顶部
   fullContent: boolean
+  // 是否需要模块页
+  modulePage: boolean
   // 内容宽度
   contentMode: ContentEnum
   // 是否显示全局页脚
