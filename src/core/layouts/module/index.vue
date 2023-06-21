@@ -8,15 +8,17 @@
     <div :class="`${prefixCls}-content`">
       <div class="content-title">{{ projectName }}</div>
       <div class="flex content-card gap-30px">
-        <div class="content-card-item" v-for="item in menus" :key="item.key" @click="handleMenu(item.path)">{{ item.name }}</div>
+        <div class="content-card-item" v-for="item in menuList" :key="item.key" @click="handleMenu(item.path)">{{ item.name }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue'
   import { router } from '@/router'
   import { useDesign } from '@/hooks/web/use-design'
+  import { getShallowMenus } from '@/router/menus'
   import { useUserStore } from '@s/store/modules/user'
 
   const projectName = import.meta.env.VITE_GLOB_APP_TITLE
@@ -24,14 +26,22 @@
   const { prefixCls } = useDesign('module-page')
   const userStore = useUserStore()
 
-  const menus = [
-    { name: '首页', key: 'm-1', path: '/home' },
-    { name: '系统管理', key: 'm-2', path: '/system-manage' },
-    { name: '无母版页', key: 'm-3', path: '/test-main-out' },
-    { name: '模块页三', key: 'm-3', path: '/home' },
-    { name: '模块页三', key: 'm-3', path: '/home' },
-    { name: '模块页三', key: 'm-3', path: '/home' }
-  ]
+  const menuList = ref([])
+
+  const getMenuData = async () => {
+    const shallowMenus = await getShallowMenus()
+    if (shallowMenus?.length) {
+      menuList.value = shallowMenus.map((item) => {
+        return {
+          key: item.path,
+          name: item.name,
+          path: item.path
+        }
+      })
+    }
+  }
+
+  getMenuData()
 
   /**
    * 路由切换
